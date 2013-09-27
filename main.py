@@ -15,7 +15,7 @@ import utility
 def fdb(file,cur):
     lines=utility.get_list_from_file('test.txt')
     for l in lines:
-	    cur.execute("""INSERT INTO profile_builder_websiteprofile(website) VALUES (%s)""",(str(l)))
+        cur.execute("""INSERT INTO profile_builder_websiteprofile(website) VALUES (%s)""",(str(l)))
         #db.commit()   
 
 def fetch_url(ids,cur):
@@ -102,13 +102,22 @@ def test_urls():
 
 #beg()
 no_of_urls=count_urls()
-no_of_threads=4
+no_of_threads=50
+if(no_of_urls<no_of_threads):
+    no_of_threads=no_of_urls
+
 l=float(no_of_urls)/float(no_of_threads)
-if(l>math.floor(l)):
-    l=l+1
-    limit=int(math.floor(l))
-if l==0 :
-	limit=1
+
+    
+if l<1 :
+    limit=1
+else:
+    if (l>math.floor(l)):
+        l=l+1
+        limit=int(math.floor(l))
+    else:
+        limit=int(l)
+
 start=0
 k=1
 test_urls()
