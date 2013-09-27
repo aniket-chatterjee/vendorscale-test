@@ -1,6 +1,5 @@
 import threading
 import time
-import filetodb
 import MySQLdb
 import urllib2
 import os
@@ -15,6 +14,7 @@ import utility
 
 def fdb(file,cur):
     lines=utility.get_list_from_file('test.txt')
+    print lines
     for l in lines:
         cur.execute("""INSERT INTO profile_builder_websiteprofile(website) VALUES (%s)""",(str(l)))
         #db.commit()   
@@ -62,7 +62,7 @@ def download(start,limit,thread_no):
         except:
             print "Error in this url :"+url 
     cur.close()
-    sys.exit()
+    #sys.exit()
         
 
 def alexarating(start,limit):
@@ -83,7 +83,7 @@ def alexarating(start,limit):
         cur.execute("UPDATE profile_builder_websiteprofile SET alexa=%s where id=%s",(reach,i))
         #utility.get_alexa_rating(ur)
     cur.close()
-    sys.exit()
+    #sys.exit()
 def count_urls():
    db=utility.get_db()
    cur=db.cursor()
