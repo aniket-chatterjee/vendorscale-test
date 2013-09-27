@@ -62,7 +62,7 @@ def download(start,limit,thread_no):
         except:
             print "Error in this url :"+url 
     cur.close()
-    #sys.exit()
+    sys.exit()
         
 
 def alexarating(start,limit):
@@ -83,7 +83,7 @@ def alexarating(start,limit):
         cur.execute("UPDATE profile_builder_websiteprofile SET alexa=%s where id=%s",(reach,i))
         #utility.get_alexa_rating(ur)
     cur.close()
-    #sys.exit()
+    sys.exit()
 def count_urls():
    db=utility.get_db()
    cur=db.cursor()
@@ -105,7 +105,7 @@ def test_urls():
         print "\n\t"+str(fetch_url(i,cur))+"\n"
     cur.close()
 
-#beg()
+beg()
 no_of_urls=count_urls()
 no_of_threads=50
 if(no_of_urls<no_of_threads):

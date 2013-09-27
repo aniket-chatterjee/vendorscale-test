@@ -159,7 +159,7 @@ def extract_company_info_from_html(content, url):
 		
 		for linkedin in LINKEDIN:
 			if linkedin in href:
-				g = '<a href="'+href+'">linkedin</a>'
+				g = url_normalize(href,'linkedin.com')
 			 	if g not in linkedin_list:
 			 		linkedin_list.append(g)
 				break		
@@ -174,7 +174,7 @@ def extract_company_info_from_html(content, url):
 
 		for twitter in TWITTER:
 			if twitter in href:
-				i = '<a href="'+href+'">twitter</a>'
+				i = url_normalize(href,'twitter.com')
 			 	if i not in twitter_list:
 			 		twitter_list.append(i)
 				break

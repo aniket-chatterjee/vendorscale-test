@@ -1,12 +1,5 @@
-http://www.facebook.com
+http://www.zansys.com
 http://www.first100sales.com
-http://www.google.com
-http://www.wikipedia.com
-http://www.example.com
-http://www.youtube.com
-http://www.msn.com
-http://www.twitter.com
-http://www.bing.com
 http://www.craigslist.com
 http://www.aol.com
 http://www.wordpress.com
@@ -14,3 +7,12 @@ http://www.ask.com
 http://www.ebay.com
 http://www.amazon.com
 http://www.yahoo.com
+http://www.hp.com
+http://www.microsoft.com
+http://pristech.in
+http://alumnux.com
+http://rapidsoftsystems.com
+http://telliant.com
+http://www.triconinfotech.com
+http://www.vervesys.com
+http://www.webspiders.com
