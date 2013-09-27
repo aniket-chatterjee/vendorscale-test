@@ -1,4 +1,4 @@
-import requests, MySQLdb, urllib, csv, time, re
+import requests, MySQLdb, urllib2, csv, time, re
 from tidylib import tidy_document
 from requests import codes
 from urlparse import urlparse
@@ -288,12 +288,23 @@ def facebook_parser_public_page(fb_content):
 
 
 def get_alexa_content(url):
+	headers = {
+    'User-Agent': 'grub-client-1.5.3',
+	}
 	try:
-		alexa_data = urllib2.urlopen('http://data.alexa.com/data?cli=10&dat=snbamz&url=%s' % (url)).read()
-		with open('alexa/'+file_name, "a") as myfile:
-			myfile.write(data)
-		return alexa_data
-	except Exception, e:
+		#alexa_data = urllib2.urlopen('http://data.alexa.com/data?cli=10&dat=snbamz&url=%s' % (url)).read()			
+		data = urllib2.urlopen('http://data.alexa.com/data?cli=10&dat=snbamz&url=%s' % (url)).read()
+		reach_rank = re.findall("REACH[^\d]*(\d+)", data)
+		if reach_rank: reach_rank = reach_rank[0]
+		else: reach_rank = -1
+
+		popularity_rank = re.findall("POPULARITY[^\d]*(\d+)", data)
+		if popularity_rank: popularity_rank = popularity_rank[0]
+		else: popularity_rank = -1
+
+		return int(popularity_rank), int(reach_rank)
+
+	except (KeyboardInterrupt, SystemExit):
 		return None
 
 def get_alexa_rating(url, file_name):

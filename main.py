@@ -4,6 +4,7 @@ import filetodb
 import MySQLdb
 import urllib2
 import os
+import sys
 import math
 from bs4 import BeautifulSoup
 import utility
@@ -61,6 +62,7 @@ def download(start,limit,thread_no):
         except:
             print "Error in this url :"+url 
     cur.close()
+    sys.exit()
         
 
 def alexarating(start,limit):
@@ -68,17 +70,20 @@ def alexarating(start,limit):
 
     cur = db.cursor()
     end=start+limit
-    print "start="+str(start)+"end="+str(end)
     for i in range(start, end):
         print "i="+str(i)
         url=fetch_url(i,cur)
         
         url=str(url).replace('(u\'','')
         url=str(url).replace('\',)','')
-        rating=utility.get_alexa_content(url)
-        cur.execute("UPDATE profile_builder_websiteprofile SET alexa=%s where id=%s",(rating,i))
+        popularity=-1
+        reach=-1
+        popularity,reach=utility.get_alexa_content(url)
+        print reach
+        cur.execute("UPDATE profile_builder_websiteprofile SET alexa=%s where id=%s",(reach,i))
         #utility.get_alexa_rating(ur)
     cur.close()
+    sys.exit()
 def count_urls():
    db=utility.get_db()
    cur=db.cursor()
@@ -126,11 +131,12 @@ try:
 
     for n in range(1,no_of_threads+1):
         print "\nk="+str(k) +" limit="+str(limit)+"\n"
-        thread = threading.Thread(target=download, args=(k,limit,"thread "+str(n)+": "))
-        thread.start()
-
-        threads.append(thread)
-
+        thread1 = threading.Thread(target=download, args=(k,limit,"thread "+str(n)+": "))
+        thread2 = threading.Thread(target=alexarating, args=(k,limit))
+        thread1.start()
+        thread2.start()
+        threads.append(thread1)
+        threads.append(thread2)
         k=k+limit
         if n==no_of_threads:
             #limit=no_of_urls%no_of_threads
@@ -145,5 +151,3 @@ try:
     
 except IOError:
     print "Error in thread"
-while 1:
-    pass
