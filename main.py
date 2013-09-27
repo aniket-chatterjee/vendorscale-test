@@ -80,7 +80,8 @@ def alexarating(start,limit):
         reach=-1
         popularity,reach=utility.get_alexa_content(url)
         print reach
-        cur.execute("UPDATE profile_builder_websiteprofile SET alexa=%s where id=%s",(reach,i))
+        cur.execute("UPDATE profile_builder_websiteprofile SET alexa=%s, alexa_status=1 where id=%s",(reach,i))
+
         #utility.get_alexa_rating(ur)
     cur.close()
     sys.exit()

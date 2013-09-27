@@ -117,42 +117,42 @@ def extract_company_info_from_html(content, url):
 			continue
 		for client in CLIENT:
 			if client in text:
-				a = '<a href="http://'+url_normalize(href,url)+'">client</a>'
+				a = url_normalize(href,url)
 			 	if a not in client_list:
 			 		client_list.append(a)
 				break
 		
 		for testimonial in TESTIMONIAL:
 			if testimonial in text:
-				b = '<a href="http://'+url_normalize(href,url)+'">testimonial</a>'
+				b = url_normalize(href,url)
 			 	if b not in testimonial_list:
 			 		testimonial_list.append(b)
 				break	
 
 		for portfolio in PORTFOLIO:
 			if portfolio in text:
-				c = '<a href="http://'+url_normalize(href,url)+'">portfolio</a>'
+				c = url_normalize(href,url)
 			 	if c not in portfolio_list:
 			 		portfolio_list.append(c)
 				break	
 
 		for casestudy in CASESTUDY:
 			if casestudy in text:
-				d = '<a href="http://'+url_normalize(href,url)+'">casestudy</a>'
+				d = url_normalize(href,url)
 			 	if d not in casestudy_list:
 			 		casestudy_list.append(d)
 				break		
 
 		for industry in INDUSTRY:
 			if industry in text:
-				e = '<a href="http://'+url_normalize(href,url)+'">industry</a>'
+				e = url_normalize(href,url)
 			 	if e not in industry_list:
 			 		industry_list.append(e)
 				break		
 
 		for contact in CONTACT:
 			if contact in text:
-				f = '<a href="http://'+url_normalize(href,url)+'">contact</a>'
+				f = url_normalize(href,url)
 			 	if f not in contact_list:
 			 		contact_list.append(f)
 				break
@@ -207,7 +207,7 @@ def extract_company_info_from_html(content, url):
 
 
 def linkedin_parser_public_page(page_content, url):
-	soup = BeautifulSoup(page_content,"html5lib")
+	soup = BeautifulSoup(page_content)
 	
 	company_name = soup.find("h1").find(text=True).replace('\n','').strip() #get inside content within tag
 	

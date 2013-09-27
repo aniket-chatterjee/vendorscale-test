@@ -53,7 +53,8 @@ def store_fb_profile(ids,facebook_list):
     if facebook_list!='':
         cur.execute("""UPDATE  profile_builder_websiteprofile set facebook_profile="%s",facebook_status=1 where id=%s""",(facebook_list,ids))
 def store_twitter_profile(ids,twitter_list):
-    cur.execute("""UPDATE  profile_builder_websiteprofile set twitter_profile="%s" where id=%s""",(twitter_list,ids))
+    if twitter_list!='':
+        cur.execute("""UPDATE  profile_builder_websiteprofile set twitter_profile="%s",twitter_status=1 where id=%s""",(twitter_list,ids))
 def store_linkedin_profile(ids,linkedin_list):
     #print linkedin_list
     if(linkedin_list!=''):
@@ -101,6 +102,6 @@ while 1:
         #store_contacts(w[1],w[0])
         
         
-    time.sleep(100000)
+    time.sleep(1000)
 
 
