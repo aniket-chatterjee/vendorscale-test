@@ -4,9 +4,10 @@ import filetodb
 import MySQLdb
 import urllib2
 import os
+import math
 from bs4 import BeautifulSoup
 import utility
-import unicodedata
+
 
 
  
@@ -84,7 +85,7 @@ def count_urls():
    cur.execute("SELECT COUNT(*) from profile_builder_websiteprofile")
    p=cur.fetchone()
    print p
-   return 16
+   return p[0]
 
 def beg():
     db=utility.get_db()
@@ -102,8 +103,11 @@ def test_urls():
 #beg()
 no_of_urls=count_urls()
 no_of_threads=4
-limit=no_of_urls/no_of_threads
-if limit==0 :
+l=float(no_of_urls)/float(no_of_threads)
+if(l>math.floor(l)):
+    l=l+1
+    limit=int(math.floor(l))
+if l==0 :
 	limit=1
 start=0
 k=1
@@ -119,8 +123,9 @@ try:
         threads.append(thread)
 
         k=k+limit
-        #if n==no_of_threads-1:
+        if n==no_of_threads:
             #limit=no_of_urls%no_of_threads
+            print "Last Thread"
         
         print "Waiting..."
 
